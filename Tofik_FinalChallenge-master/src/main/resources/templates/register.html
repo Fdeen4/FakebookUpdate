@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{appname}">Title</title>
+    <link type="text/css" rel="stylesheet" href="/css/ust.css" />
+    <div th:replace="fragment :: css"></div>
+</head>
+<body>
+<nav th:replace="fragment :: navigation"></nav>
+<div class="container mt-5">
+    <form class="form-signin" th:action="@{/register}" th:object="${newUser}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <h1 class="h3 mb-3 font-weight-normal">Register Form</h1>
+        <span th:if="${usernameErr}" class="text-danger">Username already exists...Pick another</span>
+        <input type="hidden" th:field="*{id}">
+        <label for="username" class="sr-only">Username</label>
+        <input type="text" class="form-control" th:field="*{username}">
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" class="form-control" th:field="*{password}">
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+        <p class="mt-5 mb-3 text-muted">© 2018-2019</p>
+    </form>
+</div>
+</body>
+<div th:replace="fragment :: js"></div>
+</html>

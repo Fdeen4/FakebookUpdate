@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org/" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{appname}">Title</title>
+    <link type="text/css" rel="stylesheet" href="/css/ust.css" />
+    <div th:replace="fragment :: css"></div>
+</head>
+<body>
+<nav th:replace="fragment :: navigation"></nav>
+<div class="container mt-5">
+    <div sec:authorize="isAuthenticated()" class="mb-3">
+        <form th:action="@{/posting}" th:object="${newPost}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-group">
+                <label for="text">Enter your Post:</label>
+                <input type="text" th:field="*{text}" class="form-control" placeholder="So what's good?">
+            </div>
+            <button class="btn btn-block" type="submit">Post</button>
+        </form>
+    </div>
+    <div class="card">
+        <div class="card-header">Timeline</div>
+        <div class="card-body">
+            <div th:each="post : ${posts}" class="mb-3" th:inline="text">
+                <img class="rounded-circle" th:src="${post.whoPosted.profilepicture}" alt="no profile exists for this post" height="75" width="75">
+                <span class="card-body rounded bg-light">[[${post.text}]]</span>
+                <div class="card-footer"><small>by: [[${post.whoPosted.fullName}]], at: [[${post.timePosted}]]</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div th:replace="fragment :: js"></div>
+</html>
